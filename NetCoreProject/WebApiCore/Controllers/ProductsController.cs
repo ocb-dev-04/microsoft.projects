@@ -18,6 +18,7 @@ namespace WebApiCore.Controllers
         #region Properties
 
         private readonly IProductsRepository _productsRepository;
+        private readonly Products products;
 
         #endregion
 
@@ -29,46 +30,61 @@ namespace WebApiCore.Controllers
                 => _productsRepository = productsRepository;
 
         #endregion
-        
+
+        #region GetAll GetById
+
         [HttpGet]
         public async Task<IEnumerable<Products>> GetAllProducts()
         {
             _logger.LogInformation("Acces to all products");
             return await _productsRepository.GetAllProductsAsync();
         }
-
         
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
-            _logger.LogInformation("Get for product with id: ", id);
+            _logger.LogInformation("Get for product with ID -----> {0}", id);
             var response = await _productsRepository.GetProductById(id);
-            if(response == null)
+            if (response == null)
             {
-                _logger.LogInformation("Ups, product not found!");
-                return NotFound("Ups, product not found!");
+                _logger.LogInformation("Product with ID -----> {0} not found!", id);
+                return NotFound();
             }
 
             _logger.LogInformation("Product found succesful!");
             return Ok(response);
         }
 
-        // POST: api/Products
+        #endregion
+
+        #region CRUD
+        
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> CreateProduct([FromBody] Products create)
         {
+            _logger.LogInformation("Create a new product: {0}", create);
+            var response = await _productsRepository.CreateProductAsync(create);
+            if(response == null)
+            {
+                _logger.LogInformation("Some error ocurred while create the products");
+                return NotFound("Some error ocurred");
+            }
+
+            _logger.LogInformation("Product {0} create succesful");
+            return Ok(response);
+
         }
 
-        // PUT: api/Products/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] Products update)
         {
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
         }
+        
+        #endregion
     }
 }
