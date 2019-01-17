@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ModelCore.Entities;
 
 namespace ModelCore.Data
 {
@@ -13,7 +14,8 @@ namespace ModelCore.Data
 
         #region DbSet's
 
-        public DbSet<> MyProperty { get; set; }
+        public DbSet<Categories> Categories { get; set; }
+        public DbSet<Products> Products { get; set; }
 
         #endregion
     }
