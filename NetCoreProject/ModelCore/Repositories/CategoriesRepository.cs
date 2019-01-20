@@ -41,10 +41,14 @@ namespace ModelCore.Repositories
         #region CRUD
 
         //create
-        public async Task CreateCategoryAsync(Categories categories)
+        public async Task<bool> CreateCategoryAsync(Categories categories)
         {
-            await _appContext.Categories.AddAsync(categories);
+            var responde = await _appContext.Categories.AddAsync(categories);
+            if (responde == null)
+                return false;
+
             await _appContext.SaveChangesAsync();
+            return true;
         }
 
         //update
@@ -60,11 +64,15 @@ namespace ModelCore.Repositories
         }
 
         //delete
-        public async Task DeleteCategoryAsync(int id)
+        public async Task<bool> DeleteCategoryAsync(int id)
         {
             var delete = await _appContext.Categories.FindAsync(id);
-            _appContext.Categories.Remove(delete);
+            var response = _appContext.Categories.Remove(delete);
+            if (response == null)
+                return false;
+
             await _appContext.SaveChangesAsync();
+            return true;
         }
 
         #endregion

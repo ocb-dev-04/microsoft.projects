@@ -15,9 +15,9 @@ namespace ModelCore.Interfaces
 
         #region CRUD
 
-        Task CreateProductAsync(Products create);
+        Task<bool> CreateProductAsync(Products create);
         Task<bool> UpdateProductAsync(int id, Products update);
-        Task DeleteProductAsync(int id);
+        Task<bool> DeleteProductAsync(int id);
 
         #endregion
     }

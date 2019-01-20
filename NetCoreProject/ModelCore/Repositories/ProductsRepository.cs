@@ -41,10 +41,14 @@ namespace ModelCore.Repositories
         #region CRUD
 
         //create
-        public async Task CreateProductAsync(Products create)
+        public async Task<bool> CreateProductAsync(Products create)
         {
-            await _appContext.Products.AddAsync(create);
+            var add = await _appContext.Products.AddAsync(create);
+            if (add == null)
+                return false;
             await _appContext.SaveChangesAsync();
+
+            return true;
         }
 
         //update
@@ -60,11 +64,15 @@ namespace ModelCore.Repositories
         }
 
         //delete
-        public async Task DeleteProductAsync(int id)
+        public async Task<bool> DeleteProductAsync(int id)
         {
             var delete = await _appContext.Products.FindAsync(id);
-            _appContext.Products.Remove(delete);
+            var response = _appContext.Products.Remove(delete);
+            if (response == null)
+                return false;
+
             await _appContext.SaveChangesAsync();
+            return true;
         }
 
         #endregion

@@ -1,6 +1,5 @@
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\bin\Debug\netcoreapp2.2\ModelCore.deps.json
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\bin\Debug\netcoreapp2.2\ModelCore.dll
-C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\obj\Debug\netcoreapp2.2\ModelCore.csprojAssemblyReference.cache
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\obj\Debug\netcoreapp2.2\ModelCore.csproj.CoreCompileInputs.cache
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\obj\Debug\netcoreapp2.2\ModelCore.AssemblyInfoInputs.cache
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\obj\Debug\netcoreapp2.2\ModelCore.AssemblyInfo.cs
