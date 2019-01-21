@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ModelCore.Entities;
 using ModelCore.Interfaces;
-using WebApiCore.Controllers.AllController;
 
 namespace WebApiCore.Controllers
 {
-    [Route("api/[controller]")]
+    [Produces("application/json")]
+    [Route("api/Categories/{categoryId}/Products")]
     [ApiController]
     public class ProductsController : DIController
     {
@@ -30,10 +30,10 @@ namespace WebApiCore.Controllers
         #region GetAll GetById
 
         [HttpGet]
-        public async Task<IEnumerable<Products>> GetAllProducts()
+        public async Task<IEnumerable<Products>> GetAllProducts(int categoryId)
         {
             _logger.LogInformation("Acces to all products");
-            return await _productsRepository.GetAllProductsAsync();
+            return await _productsRepository.GetAllProductsAsync(categoryId);
         }
         
         [HttpGet("{id}", Name = "productCreated")]
@@ -56,23 +56,24 @@ namespace WebApiCore.Controllers
         #region CRUD
         
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] Products create)
+        public async Task<IActionResult> CreateProduct(int categoryId, [FromBody] Products create)
         {
-            if(ModelState.IsValid)
+            _logger.LogWarning($"Try to CREATE a new product: {create.Name} with CategoryId: {categoryId}");
+            if (ModelState.IsValid)
             {
-                _logger.LogInformation("Create a new product: {0}", create);
-                create.Create = System.DateTime.Now;
+                create.CategoryId = categoryId;
                 var response = await _productsRepository.CreateProductAsync(create);
-                if (response == false)
+                if (response == null)
                 {
-                    _logger.LogInformation("Some error ocurred while create the products");
-                    return NotFound("Some error ocurred");
+                    _logger.LogWarning("Some error ocurred while create the products");
+                    return NotFound();
                 }
 
-                _logger.LogInformation("Product {0} create succesful", create);
-                return new CreatedAtRouteResult("productCreated", new { id= create.Id }, create);
+                _logger.LogWarning($"Product {response.Name} create succesful");
+                return new CreatedAtRouteResult("productCreated", new { id= response.Id }, response);
             }
 
+            _logger.LogWarning("Modeltate invalid");
             return BadRequest(ModelState);
         }
 
@@ -81,16 +82,10 @@ namespace WebApiCore.Controllers
         {
             if(ModelState.IsValid && id == update.Id)
             {
-                _logger.LogInformation("Update a product: {0}", update);
-                var response = await _productsRepository.UpdateProductAsync(id, update);
-                if (response == false)
-                {
-                    _logger.LogInformation("Some error ocurred while update the products");
-                    return NotFound("Some error ocurred");
-                }
-
-                _logger.LogInformation("Product {0} update succesful", update);
-                return Ok(update);
+                _logger.LogInformation($"Try UPDATE a product: {update.Name}");
+                await _productsRepository.UpdateProductAsync(id, update);
+                _logger.LogInformation($"Product {update.Name} update succesful");
+                return NoContent();
             }
 
             return BadRequest(ModelState);
@@ -99,16 +94,10 @@ namespace WebApiCore.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct([FromRoute] int id)
         {
-            _logger.LogInformation("Try to delete product with ID: {0}", id);
-            var response = await _productsRepository.DeleteProductAsync(id);
-            if(response == false)
-            {
-                _logger.LogInformation("Ups, product can't delete");
-                return NotFound();
-            }
-
+            _logger.LogInformation($"Try to DELETE product with ID: {id}");
+            await _productsRepository.DeleteProductAsync(id);
             _logger.LogInformation("Product delete succesful");
-            return Ok();
+            return NoContent();
         }
         
         #endregion

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace WebApiCore.Controllers.AllController
+namespace WebApiCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

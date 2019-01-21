@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ModelCore.Data;
 using ModelCore.Entities;
-using System.Collections.Generic;
-using System.Linq;
 using WebApiCore.Services;
 
 namespace WebApiCore
@@ -33,8 +33,13 @@ namespace WebApiCore
             services.AddAppRandI();
             services.AddDBInfo(Configuration);
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(ConfigureJson);
         }
+
+        private void ConfigureJson(MvcJsonOptions obj) 
+            => obj.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
         #endregion
 
@@ -56,17 +61,27 @@ namespace WebApiCore
 
             app.UseHttpsRedirection();
             app.UseMvc();
-
-            if(!appContext.Products.Any())
+            
+            if(!appContext.Categories.Any())
             {
-                appContext.Products.AddRangeAsync(new List<Products>()
+                appContext.Categories.AddRangeAsync(new List<Categories>()
                 {
-                    new Products() {Id = 1, Name = "Desktop chair", Description = "Perfect to bussines", Price = 125, Create = System.DateTime.Now, Stock= 25 },
-                    new Products() {Id = 2, Name = "Desktop PC", Description = "Strong desktop computer", Price = 2563, Create = System.DateTime.Now, Stock= 25 }
+                    new Categories() { Name = "Cars", Products = new List<Products> {
+                            new Products() { Name="Toyota" },
+                            new Products() { Name="Honda" },
+                            new Products() { Name="Suzuki" }
+                    } },
+                    new Categories() { Name = "Jeep", Products = new List<Products> {
+                            new Products() { Name="Jeep Grand Cherokee" },
+                            new Products() { Name="Range Rover Sport" }
+                    } },
+                    new Categories() { Name = "Truck" }
+
                 });
 
                 appContext.SaveChangesAsync();
             }
+
         }
 
         #endregion

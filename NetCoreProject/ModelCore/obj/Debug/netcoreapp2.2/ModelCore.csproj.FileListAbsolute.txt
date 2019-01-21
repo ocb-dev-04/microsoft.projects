@@ -6,3 +6,4 @@ C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\Ne
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\bin\Debug\netcoreapp2.2\ModelCore.pdb
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\obj\Debug\netcoreapp2.2\ModelCore.dll
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\obj\Debug\netcoreapp2.2\ModelCore.pdb
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\NetCoreProject\ModelCore\obj\Debug\netcoreapp2.2\ModelCore.csprojAssemblyReference.cache

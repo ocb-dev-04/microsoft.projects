@@ -34,45 +34,43 @@ namespace ModelCore.Repositories
 
         //get by id
         public async Task<Categories> GetCategoryById(int id)
-            => await _appContext.Categories.FindAsync(id);
+            => await _appContext.Categories.Include(p => p.Products).FirstOrDefaultAsync(p => p.Id == id);
 
         #endregion
 
         #region CRUD
 
         //create
-        public async Task<bool> CreateCategoryAsync(Categories categories)
+        public async Task<Categories> CreateCategoryAsync(Categories categories)
         {
-            var responde = await _appContext.Categories.AddAsync(categories);
-            if (responde == null)
-                return false;
+            var response = await _appContext.Categories.AddAsync(categories);
+            if (response == null)
+                throw new System.ArgumentNullException(nameof(response));
 
             await _appContext.SaveChangesAsync();
-            return true;
+            return categories;
         }
 
         //update
-        public async Task<bool> UpdateCategoryAsync(int id, Categories categories)
+        public async Task UpdateCategoryAsync(int id, Categories categories)
         {
             var update = await _appContext.Categories.FindAsync(id);
             if (update == null)
-                return false;
+                throw new System.ArgumentNullException(nameof(update));
 
             _appContext.Entry(update).State = EntityState.Modified;
             await _appContext.SaveChangesAsync();
-            return true;
         }
 
         //delete
-        public async Task<bool> DeleteCategoryAsync(int id)
+        public async Task DeleteCategoryAsync(int id)
         {
             var delete = await _appContext.Categories.FindAsync(id);
             var response = _appContext.Categories.Remove(delete);
             if (response == null)
-                return false;
+                throw new System.ArgumentNullException(nameof(response));
 
             await _appContext.SaveChangesAsync();
-            return true;
         }
 
         #endregion

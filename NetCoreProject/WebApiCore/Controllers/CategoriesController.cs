@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ModelCore.Entities;
 using ModelCore.Interfaces;
-using WebApiCore.Controllers.AllController;
 
 namespace WebApiCore.Controllers
 {
@@ -30,33 +29,33 @@ namespace WebApiCore.Controllers
         #region GetAll GetById
 
         [HttpGet]
-        public async Task<IEnumerable<Categories>> GetAllCategories()
+        public async Task<ActionResult<IEnumerable<Categories>>> GetAllCategories()
         {
-            _logger.LogInformation("Acces to all categories");
+            _logger.LogWarning("Acces to all categories");
             var response = await _categoriesRepository.GetAllCategoriesAsync();
             if (response == null)
             {
-                _logger.LogInformation("Some error ocurred");
-                return response;
+                _logger.LogWarning("Some error ocurred");
+                return NotFound();
             }
 
             _logger.LogInformation("All categories was show");
-            return response;
+            return Ok(response);
         }
         
         [HttpGet("{id}", Name = "categoriesCreated")]
-        public async Task<Categories> GetCategoryById(int id)
+        public async Task<IActionResult> GetCategoryById(int id)
         {
-            _logger.LogInformation("Acces to category with ID: {0}", id);
+            _logger.LogInformation($"Acces to category with ID: {id}");
             var response = await _categoriesRepository.GetCategoryById(id);
             if (response == null)
             {
-                _logger.LogInformation("Some error ocurred");
-                return response;
+                _logger.LogWarning("Some error ocurred");
+                return NotFound();
             }
 
-            _logger.LogInformation("Category with ID: {0} showed", id);
-            return response;
+            _logger.LogInformation($"Category with ID: {id} showed");
+            return Ok(response);
         }
 
         #endregion
@@ -66,57 +65,45 @@ namespace WebApiCore.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateCategory([FromBody] Categories create)
         {
-            _logger.LogInformation("Try create a new category with: {0}", create);
+            _logger.LogInformation($"Try CREATE a new category with: {create}");
             if(ModelState.IsValid)
             {
                 var response = await _categoriesRepository.CreateCategoryAsync(create);
-                if(response == false)
+                if(response == null)
                 {
-                    _logger.LogInformation("Some error ocurred while create the new category");
-                    return NotFound(create);
+                    _logger.LogWarning("Some error ocurred while create the new category");
+                    return NotFound();
                 }
 
-                _logger.LogInformation("Category create succesful");
-                return new CreatedAtRouteResult("categoriesCreated", new { id = create.Id }, create);
+                _logger.LogInformation("Category created succesful");
+                return new CreatedAtRouteResult("categoriesCreated", new { id = response.Id }, response);
             }
 
-            _logger.LogInformation("ModelState wrong");
+            _logger.LogWarning("ModelState invalid");
             return BadRequest(ModelState);
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCategory([FromRoute] int id, [FromBody] Categories update)
+        public async Task<IActionResult> UpdateCategory(int id, [FromBody] Categories update)
         {
-            _logger.LogInformation("Try to update Category with id {0} and info is: {1}", id, update);
+            _logger.LogInformation($"Try to UPDATE Category with id {id} and info is: {update}");
             if(ModelState.IsValid && id == update.Id)
             {
-                var response = await _categoriesRepository.UpdateCategoryAsync(id, update);
-                if(response == false)
-                {
-                    _logger.LogInformation("Some error ocurred while update Category: {0}", update);
-                    return NotFound(update);
-                }
-
-                _logger.LogInformation("Category update succesful");
-                return Ok(update);
+                await _categoriesRepository.UpdateCategoryAsync(id, update);
+                return NoContent();
             }
 
-            _logger.LogInformation("ModelSate is wrong");
+            _logger.LogWarning("ModelSate is invalid or id is wrong");
             return BadRequest(ModelState);
         }
         
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
-            var response = await _categoriesRepository.DeleteCategoryAsync(id);
-            if(response == false)
-            {
-                _logger.LogInformation("A error ocurred while delete category with ID: {0}", id);
-                return NotFound(id);
-            }
-
+            _logger.LogInformation($"Try to DELETE category with ID: {id}");
+            await _categoriesRepository.DeleteCategoryAsync(id);
             _logger.LogInformation("Category with Id: {0} deleted", id);
-            return Ok();
+            return NoContent();
         }
 
         #endregion

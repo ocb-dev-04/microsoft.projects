@@ -15,9 +15,9 @@ namespace ModelCore.Interfaces
 
         #region CRUD
 
-        Task<bool> CreateCategoryAsync(Categories categories);
-        Task<bool> UpdateCategoryAsync(int id, Categories categories);
-        Task<bool> DeleteCategoryAsync(int id);
+        Task<Categories> CreateCategoryAsync(Categories categories);
+        Task UpdateCategoryAsync(int id, Categories categories);
+        Task DeleteCategoryAsync(int id);
         
         #endregion
     }

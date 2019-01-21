@@ -8,16 +8,16 @@ namespace ModelCore.Interfaces
     {
         #region GetAll, GetById
 
-        Task<ICollection<Products>> GetAllProductsAsync();
+        Task<ICollection<Products>> GetAllProductsAsync(int categoryId);
         Task<Products> GetProductById(int id);
 
         #endregion
 
         #region CRUD
 
-        Task<bool> CreateProductAsync(Products create);
-        Task<bool> UpdateProductAsync(int id, Products update);
-        Task<bool> DeleteProductAsync(int id);
+        Task<Products> CreateProductAsync(Products create);
+        Task UpdateProductAsync(int id, Products update);
+        Task DeleteProductAsync(int id);
 
         #endregion
     }
