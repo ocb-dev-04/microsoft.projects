@@ -1,0 +1,6 @@
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\bin\Debug\DomainDI.dll
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\bin\Debug\DomainDI.pdb
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\obj\Debug\DomainDI.csprojAssemblyReference.cache
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\obj\Debug\DomainDI.csproj.CoreCompileInputs.cache
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\obj\Debug\DomainDI.dll
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\obj\Debug\DomainDI.pdb
