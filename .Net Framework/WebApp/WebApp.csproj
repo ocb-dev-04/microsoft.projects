@@ -207,10 +207,14 @@
     <Content Include="Views\Categories\DetailsCategory.cshtml" />
     <Content Include="Views\Categories\Update.cshtml" />
     <Content Include="Views\Categories\Delete.cshtml" />
+    <Content Include="Views\Products\ListProducts.cshtml" />
+    <Content Include="Views\Products\DetailsProduct.cshtml" />
+    <Content Include="Views\Products\CreateProduct.cshtml" />
+    <Content Include="Views\Products\Update.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

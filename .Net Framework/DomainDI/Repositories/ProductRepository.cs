@@ -51,6 +51,10 @@ namespace DomainDI.Repositories
         {
             try
             {
+                var categoryConfirm = await _appContext.Categories.FindAsync(create.CategoryId);
+                if (categoryConfirm == null)
+                    throw new ArgumentNullException(nameof(categoryConfirm));
+
                 var add = _appContext.Products.Add(create);
                 if (add == null)
                     throw new ArgumentNullException(nameof(add));
@@ -70,6 +74,10 @@ namespace DomainDI.Repositories
             {
                 var confirm = await _appContext.Products.FindAsync(id);
                 if (confirm == null)
+                    return false;
+
+                var categoryConfirm = await _appContext.Categories.FindAsync(update.CategoryId);
+                if (categoryConfirm == null)
                     return false;
 
                 confirm = update;

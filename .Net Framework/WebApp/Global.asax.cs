@@ -15,6 +15,7 @@ namespace WebApp
 
             //  dependency injection
             UnityConfig.RegisterComponents();
+            
         }
     }
 }
