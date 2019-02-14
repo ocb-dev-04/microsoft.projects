@@ -1,17 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using DomainDI.Interfaces;
 
 namespace WebApp.Controllers
 {
     public class CategoriesController : Controller
     {
-        // GET: Categories
-        public ActionResult Index()
+        #region Properties
+
+        private readonly ICategoryRepository _categoryRepository;
+
+        #endregion
+
+        #region Construct
+
+        public CategoriesController(ICategoryRepository categoryRepository)
+            => _categoryRepository = categoryRepository;
+
+        #endregion
+        
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var list = await _categoryRepository.GetAllCategories();
+            return View(list);
         }
+
     }
 }

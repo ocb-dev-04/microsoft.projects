@@ -4,3 +4,9 @@ C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.N
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\obj\Debug\DomainDI.csproj.CoreCompileInputs.cache
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\obj\Debug\DomainDI.dll
 C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\obj\Debug\DomainDI.pdb
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\bin\Debug\DomainDI.dll.config
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\bin\Debug\EntityFramework.dll
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\bin\Debug\EntityFramework.SqlServer.dll
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\bin\Debug\EntityFramework.xml
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\bin\Debug\EntityFramework.SqlServer.xml
+C:\Respositorio para CV\Microsoft .Net ( Framework, Core )\microsoft.projects\.Net Framework\DomainDI\obj\Debug\DomainDI.csproj.CopyComplete
