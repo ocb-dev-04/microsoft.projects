@@ -15,7 +15,7 @@ namespace WebApp
             
             // e.g. container.RegisterType<ITestService, TestService>();
             
-            GlobalConfiguration.Configuration.DependencyResolver = new UnityDependencyResolver(container);
+            var dependedy = new UnityDependencyResolver(container);
         }
     }
 }

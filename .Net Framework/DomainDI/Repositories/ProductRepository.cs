@@ -1,44 +1,107 @@
-﻿using DomainDI.Entities;
-using DomainDI.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Data.Entity;
 using System.Threading.Tasks;
+using DomainDI.DataContext;
+using DomainDI.Interfaces;
 
 namespace DomainDI.Repositories
 {
     public class ProductRepository : IProductRepository
     {
+        #region Properties
+
+        private readonly DataContext.AppContext _appContext = new DataContext.AppContext();
+
+        #endregion
+
         #region GetAll, GetById
 
-        public async Task<IEnumerable<Products>> GetAllCategories()
+        public async Task<IEnumerable<Product>> GetAllProducts()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _appContext.Products.ToListAsync();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException(nameof(ex));
+            }
         }
 
-        public async Task<Products> GetCategoryById(int id)
+        public async Task<Product> GetProductById(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var response = await _appContext.Products.FindAsync(id);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException(nameof(ex));
+            }
         }
 
         #endregion
 
         #region CRUD
 
-        public async Task<Products> CreateCategoryAsync(Products create)
+        public async Task<Product> CreateProductAsync(Product create)
         {
-            throw new NotImplementedException();
-        }
-        
-        public async Task<bool> UpdateCategoryAsync(int id, Products update)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var add = _appContext.Products.Add(create);
+                if (add == null)
+                    throw new ArgumentNullException(nameof(add));
+
+                await _appContext.SaveChangesAsync();
+                return add;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException(nameof(ex));
+            }
         }
 
-        public async Task<bool> DeleteCategoryAsync(int id)
+        public async Task<bool> UpdateProductAsync(int id, Product update)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var confirm = await _appContext.Products.FindAsync(id);
+                if (confirm == null)
+                    return false;
+
+                confirm = update;
+                var add = _appContext.Products.Add(confirm);
+                if (add == null)
+                    return false;
+
+                await _appContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException(nameof(ex));
+            }
+        }
+
+        public async Task<bool> DeleteProductAsync(int id)
+        {
+            try
+            {
+                var confirm = await _appContext.Products.FindAsync(id);
+                if (confirm == null)
+                    return false;
+
+                _appContext.Products.Remove(confirm);
+                await _appContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentNullException(nameof(ex));
+            }
         }
 
         #endregion

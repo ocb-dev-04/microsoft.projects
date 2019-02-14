@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using DomainDI.Entities;
+using DomainDI.DataContext;
 
 namespace DomainDI.Interfaces
 {
@@ -8,11 +8,11 @@ namespace DomainDI.Interfaces
     {
         #region Methods
 
-        Task<IEnumerable<Categories>> GetAllCategories();
-        Task<Categories> GetCategoryById(int id);
+        Task<IEnumerable<Category>> GetAllCategories();
+        Task<Category> GetCategoryById(int id);
 
-        Task<Categories> CreateCategoryAsync(Categories create);
-        Task<bool> UpdateCategoryAsync(int id, Categories update);
+        Task<Category> CreateCategoryAsync(Category create);
+        Task<bool> UpdateCategoryAsync(int id, Category update);
         Task<bool> DeleteCategoryAsync(int id);
         
         #endregion
